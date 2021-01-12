@@ -27,6 +27,12 @@ import com.baeldung.config.MongoConfig;
 import com.baeldung.model.EmailAddress;
 import com.baeldung.model.User;
 
+/**
+ * 
+ * This test requires:
+ * * mongodb instance running on the environment
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MongoConfig.class)
 public class MongoTemplateQueryLiveTest {
@@ -131,7 +137,7 @@ public class MongoTemplateQueryLiveTest {
         mongoTemplate.insert(user);
 
         Query query = new Query();
-        query.with(new Sort(Sort.Direction.ASC, "age"));
+        query.with(Sort.by(Direction.ASC, "age"));
 
         List<User> users = mongoTemplate.find(query, User.class);
         assertThat(users.size(), is(3));
